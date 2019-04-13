@@ -1,0 +1,61 @@
+<div class="col-lg-10">
+  <h1>Product List</h1>
+  <br />
+
+  <br />
+  <br />
+  <div @myInsertRemoveTrigger *ngIf="isShown" class="insert-remove-container">
+    <p>The box is inserted</p>
+  </div>
+  <table class="table table- table-responsive table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">ID</th>
+
+        <th class="text-center">Name</th>
+        <th class="text-center">Description</th>
+        <th class="text-center">Price</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of (products | paginate: config)">
+        <td class="text-center">{{ p.id }}</td>
+        <td class="text-center">{{ p.name }}</td>
+        <td class="text-center">{{ p.description }}</td>
+        <td class="text-center">{{ p.price | currency: "INR" }}</td>
+        <td class="text-center">
+          <button class="btn btn-danger" (click)="deleteproduct(p)">
+            Delete
+          </button>
+
+          &nbsp; &nbsp;
+
+          <button class="btn btn-danger" (click)="editproduct(p)">Edit</button>
+        </td>
+      </tr>
+      <tr *ngIf="!products || products.length == null">
+        <th colspan="5">
+          <p class="text-right">
+            Sorry no Prodcts's available ..!
+          </p>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls
+    (pageChange)="pageChange($event)"
+    class="my-pagination"
+  ></pagination-controls>
+  <div class="text-center">
+    <button class="btn btn-primary " (click)="addproduct()">
+      Add Product</button
+    >&nbsp; &nbsp;
+    <button class="btn btn-warning" (click)="deleteAllProduct()">
+      Delete All</button
+    >&nbsp;
+    <button class="btn btn-success" (click)="backProduct()">
+      Back</button
+    >&nbsp;
+  </div>
+</div>
